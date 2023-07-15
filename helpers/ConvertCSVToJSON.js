@@ -1,10 +1,10 @@
-const csvtojson = require('csvtojson');
-const fs = require('fs');
+import csvtojson from 'csvtojson';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
 // Paths
 const csvFilePath = "./data/DataCSV.csv";
 const jsonOutcomeDir = "./data";
-const jsonOutcomePath = `${jsonOutcomeDir}/convertedData.Json`;
+const jsonOutcomePath = `${jsonOutcomeDir}/convertedCSVData.Json`;
 
 // Filter Pattern to get only the years (4 digits strings)
 const regexPattern = RegExp("^\\d\\d\\d\\d$");
@@ -50,11 +50,11 @@ csvtojson({ delimiter: ";" })
         }
 
         // Writign .json file
-        if (!fs.existsSync(jsonOutcomeDir)) {
-            fs.mkdirSync(dir)
+        if (!existsSync(jsonOutcomeDir)) {
+            mkdirSync(jsonOutcomeDir)
         }
 
-        fs.writeFileSync(jsonOutcomePath, JSON.stringify(readyToConvertJson, null, 2), "utf-8", (err) => {
+        writeFileSync(jsonOutcomePath, JSON.stringify(readyToConvertJson, null, 2), "utf-8", (err) => {
             console.log(err);
         })
     });

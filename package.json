@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "REMA Challenge",
   "main": "index.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "run": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/lucasfpascoali/REMAChallenge#readme",
   "dependencies": {
-    "csvtojson": "^2.0.10"
+    "csvtojson": "^2.0.10",
+    "pdf2json": "^3.0.4",
+    "pdfreader": "^3.0.0"
   }
 }
