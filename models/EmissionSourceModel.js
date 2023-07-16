@@ -16,18 +16,17 @@ export class EmissionSource {
     }
 
     get emission() {
-        return calcEmission();
-    }
-
-    calcEmission() {
         let year = this.date.slice(0, 4);
         let monthIndex = this.date.indexOf('-') + 1;
         let month = parseInt(this.date.slice(monthIndex, monthIndex + 2));
         let emissionFactor = 0;
-        if (northRegion.includes(this.state)) {
-            emissionFactor = emissionFactorData.sia[year]['annual avg'];
+
+        /* We need to use the Sistema Interligado do Amazonas 
+        when the state is from the north Region and the year is between 2011 and 2015 */
+        if (northRegion.includes(this.state) && parseInt(year) >= 2011 && parseInt(year) <= 2015) {
+            emissionFactor = emissionFactorData['SIA'][year]['annual avg'];
         } else {
-            emissionFactor = emissionFactorData.sin[year][monthsAbreviation[month - 1]];
+            emissionFactor = emissionFactorData['SIN'][year][monthsAbreviation[month - 1]];
         }
 
         /* Replacing the comma by dot, because the parseFloat doesnt works with comma 
@@ -38,4 +37,6 @@ export class EmissionSource {
          so we need to convert dividing by 1000 */
         return emissionFactor * (this.consumptionAmount / 1000);
     }
+
+
 }

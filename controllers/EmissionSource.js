@@ -5,13 +5,20 @@ export function validateEmissionSourceData(obj) {
     if (!obj) return null;
 
     const requiredFields = ['name', 'consumptionAmount', 'date', 'state'];
-    if (Object.keys(obj).every((key => requiredFields.includes(key))))
+    if (!Object.keys(obj).every((key => requiredFields.includes(key)))) {
         return null;
+    }
 
+    // Verify if they are not empty
+    if (!Object.values(obj).every((value => value.length > 0))) {
+        return null;
+    }
+
+    // Verify if consumptionAmount is a valid number
     let consumption = parseFloat(obj.consumptionAmount.replace(',', '.'));
-    if (isNaN(consumption))
+    if (isNaN(consumption)) {
         return null;
-
+    }
     obj.consumptionAmount = consumption;
 
     const validStates = [
@@ -27,7 +34,8 @@ export function validateEmissionSourceData(obj) {
     if (obj.state.length != 2 || !validStates.includes(obj.state))
         return null;
 
-    const regexPattern = RegExp('^\d{4}-\d{2}$');
+    // Verify if date is on valid format (YYYY-MM)
+    const regexPattern = RegExp('^\\d{4}-\\d{2}$');
     if (!regexPattern.test(obj.date))
         return null;
 
@@ -49,7 +57,7 @@ export async function createTable() {
 // Insert new EmissionSource on database
 export async function insert(emissionSource) {
     openDb().then(db => {
-        db.run('INSERT into EmissionSource (name, consumptionAmount, date, state, emission VALUES (?, ?, ?, ?, ?)',
+        db.run('INSERT into EmissionSource (name, consumptionAmount, date, state, emission) VALUES (?, ?, ?, ?, ?)',
             [
                 emissionSource.name,
                 emissionSource.consumptionAmount,
