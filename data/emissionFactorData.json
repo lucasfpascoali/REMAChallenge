@@ -292,24 +292,24 @@
   },
   "SIA": {
     "2011": {
-      "annual avg": "tCO2/MWh",
-      "unit": "0,4148"
+      "annual avg": "0,4148",
+      "unit": "tCO2/MWh"
     },
     "2012": {
-      "annual avg": "tCO2/MWh",
-      "unit": "0,7125"
+      "annual avg": "0,7125",
+      "unit": "tCO2/MWh"
     },
     "2013": {
-      "annual avg": "tCO2/MWh",
-      "unit": "0,8726"
+      "annual avg": "0,8726",
+      "unit": "tCO2/MWh"
     },
     "2014": {
-      "annual avg": "tCO2/MWh",
-      "unit": "0,8151"
+      "annual avg": "0,8151",
+      "unit": "tCO2/MWh"
     },
     "2015": {
-      "annual avg": "tCO2/MWh",
-      "unit": "0,8438"
+      "annual avg": "0,8438",
+      "unit": "tCO2/MWh"
     }
   }
 }

@@ -3,6 +3,15 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
 const pdfReader = new PdfReader();
 
+/* 
+    Attention! This file isn't used on the site.
+    It's just a script for the second evaluation criteria of the challenge.
+    You can test it using the following command: node convertCSVToJSON.js
+    It will create a json file called convertedCSVData.json on the data folder.
+    There is a file called parsePdfToJsonController that does almost the same thing
+    and is used on the site (and it's real time).
+*/
+
 // Paths
 const pdfFilePath = "./pdf/conta3.pdf";
 const pdfOutcomeDir = "./data";

@@ -2,9 +2,9 @@ import csvtojson from 'csvtojson';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
 // Paths
-const csvFilePath = "./data/DataCSV.csv";
+const csvFilePath = "./data/CSVData.csv";
 const jsonOutcomeDir = "./data";
-const jsonOutcomePath = `${jsonOutcomeDir}/convertedCSVData.Json`;
+const jsonOutcomePath = `${jsonOutcomeDir}/emissionFactorData.json`;
 
 // Filter Pattern to get only the years (4 digits strings)
 const regexPattern = RegExp("^\\d\\d\\d\\d$");
@@ -39,8 +39,8 @@ csvtojson({ delimiter: ";" })
                 if (i >= 56) {
                     /* if i >= 56, the data belongs to Sistema Interligado do Amazonas 
                     and has different fields and will be on SIA object key */
-                    changeObjKeyName(rawArr[i], "field3", "annual avg");
-                    changeObjKeyName(rawArr[i], "field2", "unit");
+                    changeObjKeyName(rawArr[i], "field2", "annual avg");
+                    changeObjKeyName(rawArr[i], "field3", "unit");
                     readyToConvertJson["SIA"][year] = rawArr[i];
                     continue;
                 }
