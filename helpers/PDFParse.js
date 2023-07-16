@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 const pdfReader = new PdfReader();
 
 // Paths
-const pdfFilePath = "./pdf/conta2.pdf";
+const pdfFilePath = "./pdf/conta3.pdf";
 const pdfOutcomeDir = "./data";
 const pdfOutcomePath = `${pdfOutcomeDir}/PDFData.Json`;
 

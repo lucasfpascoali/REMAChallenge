@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "run": "node index.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,7 +26,10 @@
   "homepage": "https://github.com/lucasfpascoali/REMAChallenge#readme",
   "dependencies": {
     "csvtojson": "^2.0.10",
+    "express": "^4.18.2",
     "pdf2json": "^3.0.4",
-    "pdfreader": "^3.0.0"
+    "pdfreader": "^3.0.0",
+    "sqlite": "^5.0.1",
+    "sqlite3": "^5.1.6"
   }
 }

@@ -9,7 +9,7 @@ const jsonOutcomePath = `${jsonOutcomeDir}/convertedCSVData.Json`;
 // Filter Pattern to get only the years (4 digits strings)
 const regexPattern = RegExp("^\\d\\d\\d\\d$");
 
-// SIN is Sistema Interligado Nacional and SIA is Sistema Interligado do Amazonas
+// SIN is Sistema Interligado Nacional and SIA is Sistema Isolado do Amazonas
 const readyToConvertJson = {
     "SIN": {},
     "SIA": {}
