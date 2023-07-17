@@ -67,3 +67,9 @@ export async function insert(emissionSource) {
             ]);
     });
 }
+
+export async function getAll() {
+    return openDb().then(db => {
+        return db.all('SELECT * FROM EmissionSource').then(res => res);
+    });
+}

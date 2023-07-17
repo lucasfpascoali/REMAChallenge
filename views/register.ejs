@@ -5,50 +5,128 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
     <title>Register new Source</title>
+
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        :root {
+            width: 100vw;
+            height: 100vh;
+            font-size: 16px;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #f8f9fa;
+            padding-top: 5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        main {
+            width: 80%;
+            height: 60%;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+
+        form {
+            margin-top: 30px;
+            background-color: #fff;
+            border: 1px solid #d98b0d;
+            border-radius: 20px;
+            padding: 10px;
+            width: 40%;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .uploadForm {
+            padding-bottom: 17px;
+            justify-content: space-between;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
-    <form action="./emissionSource" method="post">
-        <label for="name">Source Name: </label>
-        <input id="sourceName" name="name" type="text" />
-        <label for="consumptionAmount">Consumption Amount: </label>
-        <input id="consumptionAmount" name="consumptionAmount" type="number" />
-        <label for="date">Date (MM-YYYY): </label>
-        <input id="date" name="date" type="month" />
-        <label for="state">State: </label>
-        <select id="state" name="state">
-            <option value="AC">Acre</option>
-            <option value="AL">Alagoas</option>
-            <option value="AP">Amapá</option>
-            <option value="AM">Amazonas</option>
-            <option value="BA">Bahia</option>
-            <option value="CE">Ceará</option>
-            <option value="DF">Distrito Federal</option>
-            <option value="ES">Espirito Santo</option>
-            <option value="GO">Goiás</option>
-            <option value="MA">Maranhão</option>
-            <option value="MS">Mato Grosso do Sul</option>
-            <option value="MT">Mato Grosso</option>
-            <option value="MG">Minas Gerais</option>
-            <option value="PA">Pará</option>
-            <option value="PB">Paraíba</option>
-            <option value="PR">Paraná</option>
-            <option value="PE">Pernambuco</option>
-            <option value="PI">Piauí</option>
-            <option value="RJ">Rio de Janeiro</option>
-            <option value="RN">Rio Grande do Norte</option>
-            <option value="RS">Rio Grande do Sul</option>
-            <option value="RO">Rondônia</option>
-            <option value="RR">Roraima</option>
-            <option value="SC">Santa Catarina</option>
-            <option value="SP">São Paulo</option>
-            <option value="SE">Sergipe</option>
-            <option value="TO">Tocantins</option>
-        </select>
+    <h1 style="color: #d98b0d; margin-bottom: 20px;">Enter the Source Data or Upload the Bill PDF</h1>
+    <main>
+        <form action="./emissionSource" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Source Name:</label>
+                <input type="text" class="form-control" id="sourceName" name="name">
+            </div>
+            <div class="mb-3">
+                <label for="consumptionAmount" class="form-label">Consumption Amount:</label>
+                <input class="form-control" id="consumptionAmount" name="consumptionAmount" type="number">
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date:</label>
+                <input class="form-control" id="date" name="date" type="month">
+            </div>
+            <label for="state">State: </label>
+            <select id="state" name="state" class="form-select">
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="ES">Espirito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba</option>
+                <option value="PR">Paraná</option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="RO">Rondônia</option>
+                <option value="RR">Roraima</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+            </select>
 
-        <input type="submit" />
-    </form>
+            <button style="margin-top: 20px; border-color: #d98b0d; background-color: #d98b0d;" type="submit"
+                class="btn btn-primary">Submit</button>
+        </form>
+
+        <form class="uploadForm" action="./emissionSourcePDF" method="post">
+            <div class="mb-3">
+                <label for="billPdf" class="form-label">Consumption Amount:</label>
+                <input class="form-control" id="billPdf" name="billPdf" type="file">
+            </div>
+            <button style="border-color: #d98b0d; background-color: #d98b0d;" type="submit"
+                class="btn btn-primary">Submit</button>
+        </form>
+    </main>
 </body>
 
 </html>

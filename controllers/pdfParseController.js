@@ -1,0 +1,1 @@
+import { PdfReader } from "pdfreader";

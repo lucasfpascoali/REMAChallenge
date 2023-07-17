@@ -1,4 +1,4 @@
-import { createTable, insert, validateEmissionSourceData } from './controllers/EmissionSource.js';
+import { createTable, getAll, insert, validateEmissionSourceData } from './controllers/EmissionSource.js';
 import { EmissionSource } from './models/EmissionSourceModel.js';
 
 import express from 'express';
@@ -10,9 +10,15 @@ app.use(express.urlencoded({ extended: true }));
 
 createTable();
 
-app.get('/', (req, res) => {
-    res.render('register');
+app.get('/', async (req, res) => {
+    let emissionSources = await getAll();
+
+    res.render('home', { emissionSources });
 });
+
+app.get('/register', (req, res) => {
+    res.render('register');
+})
 
 app.post('/emissionSource', (req, res) => {
     let data = validateEmissionSourceData(req.body);
@@ -30,7 +36,11 @@ app.post('/emissionSource', (req, res) => {
 
     insert(emissionSource);
 
-    res.redirect(200, '/');
+    res.redirect('/');
 })
+
+app.post('/emissionSourcePDF', (req, res) => {
+    console.log(req.body);
+});
 
 app.listen(3000, () => console.log("Api Rodando."))

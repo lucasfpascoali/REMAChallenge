@@ -33,9 +33,10 @@ export class EmissionSource {
         as decimal separator */
         emissionFactor = parseFloat(emissionFactor.replace(',', '.'));
 
-        /* emissionFactor unit is tCO2/MWh and our consumptionAmount is on kWh,
-         so we need to convert dividing by 1000 */
-        return emissionFactor * (this.consumptionAmount / 1000);
+        /* emissionFactor unit is tCO2/MWh so:  emission / consumption = emissionFactor
+        Then, emissionFactor * consumptions = emission
+        */
+        return emissionFactor * this.consumptionAmount;
     }
 
 
