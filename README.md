@@ -70,6 +70,8 @@ O servidor cria a tabela automaticamente caso ela já não exista, então a data
 
 Eu não achei a fórmula para o cálculo de emissões de carbono, mas como a unidade de medida do fator de emissão de carbono é tCO2/MWh, assumi que a quantidade de emissão dividida pelo energia consumida resulta no fator de emissão de carbono, logo, se multiplicarmos o fator de emissão pela quantidade de enrgia consumida, temos a quantidade de carbono emitido!
 
+Entretanto, o PDF com as instruções do desafio possuia uma ilustração na segunda página referente a opção 2 (fazer uma página web usando HTML, CSS e Javascript). Nessa ilustração, havia duas fontes de emissão: a primeira de Janeiro de 2020, no estado do Pará, possuía um consumo de 200 MWH e emissão de 67.08 tCO2 (suponho que sejam essas unidades de medidas). Se conferirmos na tabela fornecida pelo desafio, o fator de emissão de janeiro de 2020 é 0,0916 tCO2/MWh. Mas se dividirmos 67.08 por 200, temos 0,3354. O cálculo da segunda fonte da ilustração também não confere, então suponho que os dados da ilustração não são verídicos.
+
 ## Segunda Hipótese: Fatores de Emissão para Estados da Região Norte antes de 2011
 
 O desafio fornecia dados para o Sistema Isolado do Amazonas (SIA) de 2011 até 2015 e dizia que após esse ano, o SIA foi integrado ao Sistema Interligado Nacional (SIN). Porém o SIN vai de 2006 até 2022, logo os estados do norte não tem fatores de emissão anteriores à 2011, certo? Por isso, fiz uma regra de negócio que impede o usuário de registrar fontes de emissão anteriores à 2011 dos estados da região norte.
