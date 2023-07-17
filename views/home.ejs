@@ -82,7 +82,7 @@
                                     <%= states[emissionSources[i].state] %>
                                 </td>
                                 <td>
-                                    <%= emissionSources[i].consumptionAmount.toFixed(2) %>
+                                    <%= emissionSources[i].consumptionAmount.toFixed(8).replace(/\.?0+$/, '' ); %>
                                 </td>
                                 <td>
                                     <%= emissionSources[i].emission.toFixed(10).replace(/\.?0+$/, '' ); %>
