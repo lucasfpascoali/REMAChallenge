@@ -73,18 +73,18 @@
         <form action="./emissionSource" method="post">
             <div class="mb-3">
                 <label for="name" class="form-label">Source Name:</label>
-                <input type="text" class="form-control" id="sourceName" name="name">
+                <input type="text" class="form-control" id="sourceName" name="name" required>
             </div>
             <div class="mb-3">
                 <label for="consumptionAmount" class="form-label">Consumption Amount:</label>
-                <input class="form-control" id="consumptionAmount" name="consumptionAmount" type="number">
+                <input class="form-control" id="consumptionAmount" name="consumptionAmount" type="number" required>
             </div>
             <div class="mb-3">
                 <label for="date" class="form-label">Date:</label>
-                <input class="form-control" id="date" name="date" type="month">
+                <input class="form-control" id="date" name="date" type="month" required>
             </div>
             <label for="state">State: </label>
-            <select id="state" name="state" class="form-select">
+            <select id="state" name="state" class="form-select" required>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
                 <option value="AP">Amapá</option>
@@ -118,10 +118,15 @@
                 class="btn btn-primary">Submit</button>
         </form>
 
-        <form class="uploadForm" action="./emissionSourcePDF" method="post">
+        <form class="uploadForm" action="./upload" enctype='multipart/form-data' method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Source Name:</label>
+                <input type="text" class="form-control" id="sourceName" name="name" required>
+            </div>
             <div class="mb-3">
                 <label for="billPdf" class="form-label">Consumption Amount:</label>
-                <input class="form-control" id="billPdf" name="billPdf" type="file">
+                <input class="form-control" id="billPdf" name="file" type="file" required>
+                <div id="fileHelp" class="form-text">Max 2 MB. Only PDF</div>
             </div>
             <button style="border-color: #d98b0d; background-color: #d98b0d;" type="submit"
                 class="btn btn-primary">Submit</button>

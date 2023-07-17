@@ -1,7 +1,13 @@
 import { createTable, getAll, insert, validateEmissionSourceData } from './controllers/EmissionSource.js';
 import { EmissionSource } from './models/EmissionSourceModel.js';
-
 import express from 'express';
+import multer from 'multer';
+import { configs } from './multerConfig.js';
+import { createEmissionSourceFromPdf } from './controllers/pdfParseController.js';
+
+
+const upload = multer(configs);
+
 const app = express();
 app.use(express.json());
 app.set('view engine', 'ejs');
@@ -39,8 +45,14 @@ app.post('/emissionSource', (req, res) => {
     res.redirect('/');
 })
 
-app.post('/emissionSourcePDF', (req, res) => {
-    console.log(req.body);
+app.post('/upload', upload.single('file'), async (req, res) => {
+    if (!req.file || !req.body.name) {
+        res.redirect('/');
+        return;
+    }
+
+    await createEmissionSourceFromPdf(req.file.filename, req.body.name);
+    res.redirect('/');
 });
 
 app.listen(3000, () => console.log("Api Rodando."))
