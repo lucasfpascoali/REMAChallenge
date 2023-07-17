@@ -3,7 +3,6 @@ Esse repositório foi feito para o processo seletivo da REMA-UFSC
 
 # Como usar:
 Primeiramente, rode o seguinte comando para instalar as dependências do projeto:
-
 ```npm install```
 
 E para executar o servidor rode:
@@ -50,3 +49,17 @@ Utilizei essa dependência para converter o arquivo .csv para .json, ela facilit
 O PDFReader, que foi a dependência que escolhi, utiliza o PDF2Json como dependência, por isso que o projeto possui as duas. O PDFReader permitiu que eu conseguisse extrair dados de arquivos .pdf para concluir o desafio.
 
 # Hipóteses:
+
+## Primeira Hipótese: Cálculo da Emissão de Carbono
+
+Eu não achei a fórmula para o cálculo de emissões de carbono, mas como a unidade de medida do fator de emissão de carbono é tCO2/MWh, assumi que a quantidade de emissão dividida pelo energia consumida resulta no fator de emissão de carbono, logo, se multiplicarmos o fator de emissão pela quantidade de enrgia consumida, temos a quantidade de carbono emitido!
+
+## Segunda Hipótese: Fatores de Emissão para Estados da Região Norte antes de 2011
+
+O desafio fornecia dados para o Sistema Isolado do Amazonas (SIA) de 2011 até 2015 e dizia que após esse ano, o SIA foi integrado ao Sistema Interligado Nacional (SIN). Porém o SIN vai de 2006 até 2022, logo os estados do norte não tem fatores de emissão anteriores à 2011, certo? Por isso, fiz uma regra de negócio que impede o usuário de registrar fontes de emissão anteriores à 2011 dos estados da região norte.
+
+## Terceira Hipótese: Fatores de Emissão após 2022
+
+Essa parece meio óbvia, mas estou anotando ela assim mesmo, como não há dados de fatores de emissão após 2022 (ainda), o usuário não consegue inserir datas posteriores à 2022.
+
+
