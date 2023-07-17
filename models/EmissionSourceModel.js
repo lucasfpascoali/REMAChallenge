@@ -4,7 +4,7 @@ import { readFileSync } from 'fs';
 const emissionFactorData = JSON.parse(readFileSync('./data/emissionFactorData.json', 'utf-8'));
 const northRegion = ['AM', 'PA', 'AC', 'RR', 'RO', 'AP', 'TO'];
 const monthsAbreviation = ['jan', 'feb', 'mar', 'apr', 'may',
-    'jun', 'jul', 'aug', 'sep', 'nov', 'dec'];
+    'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
 // EmissionSource.js
 export class EmissionSource {

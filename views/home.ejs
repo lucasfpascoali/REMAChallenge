@@ -69,7 +69,7 @@
                     TO: 'Tocantins' }; %>
                     <% for (let i=0; i < emissionSources.length; i++) { %>
                         <% let year=emissionSources[i].date.slice(0, 4); let month=new Intl.DateTimeFormat('en-US',
-                            {month: "long" }).format(new Date(emissionSources[i].date)); %>
+                            {month: "long" }).format(new Date(`${emissionSources[i].date}-10`)); %>
 
                             <tr>
                                 <td>

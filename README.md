@@ -11,7 +11,7 @@ E para executar o servidor rode:
 Ou se preferir roder no modo dev:
 ```npm run dev```
 
-Os dois comandos para rodar primeiramente executam o arquivo scripts/convertCSVToJSON.js,
+Os dois comandos para rodar, primeiramente executam o arquivo scripts/convertCSVToJSON.js,
 que converte a tabela fornecida no desafio para um arquivo .json.
 OBS: Como era permitido converter a tabela de .xlsx para .csv, eu fiz isso
 
