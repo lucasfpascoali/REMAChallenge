@@ -4,6 +4,7 @@ import express from 'express';
 import multer from 'multer';
 import { configs } from './multerConfig.js';
 import { createEmissionSourceFromPdf } from './controllers/pdfParseController.js';
+import e from 'express';
 
 
 const upload = multer(configs);
@@ -19,12 +20,7 @@ createTable();
 app.get('/', async (req, res) => {
     let emissionSources = await getAll();
 
-    if (req.query.r) {
-        res.render('home', { emissionSources, r: true })
-    } else {
-        res.render('home', { emissionSources, r: false });
-    }
-
+    res.render('home', { emissionSources, r: false });
 });
 
 app.get('/register', (req, res) => {
@@ -41,10 +37,19 @@ app.get('/:emissionId/delete', (req, res) => {
     res.redirect('/');
 })
 
+app.get('/feedback', (req, res) => {
+    let err = false;
+    if (req.query.err) {
+        err = true;
+    }
+    res.render('feedback', { err });
+
+})
+
 app.post('/emissionSource', (req, res) => {
     let data = validateEmissionSourceData(req.body);
     if (!data) {
-        res.render('register')
+        res.redirect('feedback?err=true')
         return;
     }
 
@@ -57,17 +62,17 @@ app.post('/emissionSource', (req, res) => {
 
     insert(emissionSource);
 
-    res.redirect('/');
+    res.redirect('/feedback');
 })
 
 app.post('/upload', upload.single('file'), async (req, res) => {
     if (!req.file || !req.body.name) {
-        res.redirect('/');
+        res.redirect('/feedback?err=true');
         return;
     }
 
     createEmissionSourceFromPdf(req.file.filename, req.body.name);
-    res.redirect('/?r=true');
+    res.redirect('/feedback');
 });
 
 app.listen(3000, () => console.log("Api Rodando."))
