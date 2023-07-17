@@ -13,7 +13,7 @@ const pdfReader = new PdfReader();
 */
 
 // Paths
-const pdfFilePath = "./pdf/conta3.pdf";
+const pdfFilePath = "./pdf/conta2.pdf";
 const pdfOutcomeDir = "./data";
 const pdfOutcomePath = `${pdfOutcomeDir}/PDFData.Json`;
 

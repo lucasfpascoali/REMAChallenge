@@ -1,5 +1,5 @@
 # REMA CHALLENGE
-Esse repositório foi feito para o processo seletivo da REMA-UFSC
+Esse repositório foi feito para o processo seletivo da REMA-UFSC. Peço que leia todo esse arquivo antes de usar o sistema.
 
 # Como usar:
 Primeiramente, rode o seguinte comando para instalar as dependências do projeto:
@@ -48,6 +48,22 @@ Utilizei essa dependência para converter o arquivo .csv para .json, ela facilit
 
 O PDFReader, que foi a dependência que escolhi, utiliza o PDF2Json como dependência, por isso que o projeto possui as duas. O PDFReader permitiu que eu conseguisse extrair dados de arquivos .pdf para concluir o desafio.
 
+# Banco de Dados
+
+## EmissionSource 
+
+Obs: Os tipos suportados pelo SQLite são apenas integer, text, real e blob.
+
+A única tabela do banco de dados é a EmissionSource que armazena os seguintes campos:
+- id : integer PRIMARY KEY
+- name : text NOT NULL
+- consumptionAmount : real NOT NULL
+- date : text NOT NULL
+- state : text NOT NULL
+- emission : real NOT NULL
+
+O servidor cria a tabela automaticamente caso ela já não exista, então a database não possui nenhuma tabela até a primeira execução;
+
 # Hipóteses:
 
 ## Primeira Hipótese: Cálculo da Emissão de Carbono
@@ -62,4 +78,23 @@ O desafio fornecia dados para o Sistema Isolado do Amazonas (SIA) de 2011 até 2
 
 Essa parece meio óbvia, mas estou anotando ela assim mesmo, como não há dados de fatores de emissão após 2022 (ainda), o usuário não consegue inserir datas posteriores à 2022.
 
+## Quarta Hipótese: Nome da Fonte de Emissão quando gerada por um PDF
 
+Como o desafio não deixava explicíto como seria o nome de uma fonte de energia gerada pelo PDF, fiz um campo para usuário preencher o nome e selecionar o arquivo PDF depois.
+
+# Observações
+
+## Pasta Scripts
+
+Nessa pasta tem dois arquivos .js, o `convertCSVToJSON.js` é responsável por converter o arquivo `CSVData.csv` para .json toda vez que o server é iniciado, garantindo que caso excluam o arquivo .json, ele seja gerado novamente ou caso alterem a tabela CSV, o arquivo .json seja atualizado.
+
+Já o arquivo `pdfParse.js` só é executado se chamado manualmente pelo comando `node scripts/pdfParse.js`.
+Esse arquivo extrai a data de vencimento e o total consumido de uma conta de luz, em formato .pdf, e escreve esses dados em um arquivo .json que é criado dentro da pasta `data`.
+
+## Pasta pdf
+
+Dentro dessa pasta estão os dois arquivos .pdf fornecidos no desafio para testar o registro de uma fonte de emissão através de upload de um PDF
+
+## Pasta data
+
+Aqui fica o arquivo `CSVData.csv` que é a tabela .xlsx convertida manualmente em .csv, o arquivo `emissionFactorData.json` que é gerado toda vez que o servidor inicia e converte a tabela csv em json e também é usado posteriormente para pegar os fatores de emissão de carbono. Aqui também fica a `database.db`, que como o nove já diz, é nossa base de dados.
