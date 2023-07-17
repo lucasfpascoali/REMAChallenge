@@ -12,32 +12,39 @@
         crossorigin="anonymous"></script>
     <title>REMA Challenge</title>
 
+    <% if (r) { %>
+        <script>
+            window.location.href = '/';
+        </script>
 
-    <style>
-        * {
-            padding: 0px;
-            margin: 0px;
-        }
+        <% } %>
 
-        :root {
-            width: 100vw;
-            height: 100vh;
-            font-size: 16px;
-        }
 
-        body {
-            background-color: #f8f9fa;
-            padding-top: 5%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+            <style>
+                * {
+                    padding: 0px;
+                    margin: 0px;
+                }
 
-        a {
-            text-decoration: none;
-        }
-    </style>
+                :root {
+                    width: 100vw;
+                    height: 100vh;
+                    font-size: 16px;
+                }
+
+                body {
+                    background-color: #f8f9fa;
+                    padding-top: 5%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                a {
+                    text-decoration: none;
+                }
+            </style>
 </head>
 
 <body>
@@ -78,7 +85,7 @@
                                     <%= emissionSources[i].consumptionAmount.toFixed(2) %>
                                 </td>
                                 <td>
-                                    <%= emissionSources[i].emission %>
+                                    <%= emissionSources[i].emission.toFixed(10).replace(/\.?0+$/, '' ); %>
                                 </td>
                                 <td>
                                     <p>

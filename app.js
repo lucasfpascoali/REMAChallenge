@@ -1,4 +1,4 @@
-import { createTable, getAll, insert, validateEmissionSourceData } from './controllers/EmissionSource.js';
+import { createTable, deleteById, getAll, getById, insert, validateEmissionSourceData } from './controllers/EmissionSource.js';
 import { EmissionSource } from './models/EmissionSourceModel.js';
 import express from 'express';
 import multer from 'multer';
@@ -19,11 +19,26 @@ createTable();
 app.get('/', async (req, res) => {
     let emissionSources = await getAll();
 
-    res.render('home', { emissionSources });
+    if (req.query.r) {
+        res.render('home', { emissionSources, r: true })
+    } else {
+        res.render('home', { emissionSources, r: false });
+    }
+
 });
 
 app.get('/register', (req, res) => {
     res.render('register');
+})
+
+app.get('/:emissionId/edit', (req, res) => {
+    const emissionData = getById(req.params.emissionId);
+    res.render('edit', { emissionData });
+});
+
+app.get('/:emissionId/delete', (req, res) => {
+    deleteById(req.params.emissionId);
+    res.redirect('/');
 })
 
 app.post('/emissionSource', (req, res) => {
@@ -51,8 +66,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         return;
     }
 
-    await createEmissionSourceFromPdf(req.file.filename, req.body.name);
-    res.redirect('/');
+    createEmissionSourceFromPdf(req.file.filename, req.body.name);
+    res.redirect('/?r=true');
 });
 
 app.listen(3000, () => console.log("Api Rodando."))

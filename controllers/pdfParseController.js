@@ -10,7 +10,7 @@ export async function createEmissionSourceFromPdf(pdfFileName, sourceName) {
     let jsonObj = {};
     let pdfPath = `./uploads/${pdfFileName}`;
 
-    pdfReader.parseFileItems(pdfPath, (err, item) => {
+    pdfReader.parseFileItems(pdfPath, async (err, item) => {
         if (err) {
             console.error(err);
             return;
@@ -38,7 +38,6 @@ export async function createEmissionSourceFromPdf(pdfFileName, sourceName) {
              we need to divide by 1000 to convert to MWh */
             data.consumptionAmount /= 1000;
 
-            console.log(data);
             const emissionSource = new EmissionSource(
                 data.name,
                 data.consumptionAmount,
@@ -46,11 +45,9 @@ export async function createEmissionSourceFromPdf(pdfFileName, sourceName) {
                 data.state
             );
 
-            insert(emissionSource);
+            insert(emissionSource).then(res => res);
 
             fs.rmSync(pdfPath);
-
-            return;
         } else if (item.text) {
             /* The data that we need to retrieve is located on this coordinates of the PDF */
             if (item.y > 4 && item.y < 7 && item.x > 27) {

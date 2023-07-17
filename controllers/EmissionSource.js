@@ -68,6 +68,19 @@ export async function insert(emissionSource) {
     });
 }
 
+export async function getById(id) {
+    return openDb().then(db => {
+        return db.get('SELECT * FROM EmissionSource WHERE id=?', [id])
+            .then(res => res);
+    });
+}
+
+export async function deleteById(id) {
+    openDb().then(db => {
+        db.run('DELETE from EmissionSource WHERE id=?', [id]);
+    });
+}
+
 export async function getAll() {
     return openDb().then(db => {
         return db.all('SELECT * FROM EmissionSource').then(res => res);
