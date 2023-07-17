@@ -1,11 +1,9 @@
-import { createTable, deleteById, getAll, getById, insert, validateEmissionSourceData } from './controllers/EmissionSource.js';
+import { createTable, deleteById, getAll, getById, insert, validateEmissionSourceData, updateEmissionSourceById } from './controllers/EmissionSource.js';
 import { EmissionSource } from './models/EmissionSourceModel.js';
 import express from 'express';
 import multer from 'multer';
 import { configs } from './multerConfig.js';
 import { createEmissionSourceFromPdf } from './controllers/pdfParseController.js';
-import e from 'express';
-
 
 const upload = multer(configs);
 
@@ -27,8 +25,8 @@ app.get('/register', (req, res) => {
     res.render('register');
 })
 
-app.get('/:emissionId/edit', (req, res) => {
-    const emissionData = getById(req.params.emissionId);
+app.get('/:emissionId/edit', async (req, res) => {
+    const emissionData = await getById(req.params.emissionId);
     res.render('edit', { emissionData });
 });
 
@@ -72,6 +70,26 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     }
 
     createEmissionSourceFromPdf(req.file.filename, req.body.name);
+    res.redirect('/feedback');
+});
+
+app.post('/:emissionId/edit', (req, res) => {
+    const emissionId = req.params.emissionId;
+    let data = validateEmissionSourceData(req.body);
+    if (!data) {
+        res.redirect('feedback?err=true')
+        return;
+    }
+
+    let emissionSource = new EmissionSource(
+        data.name,
+        data.consumptionAmount,
+        data.date,
+        data.state
+    );
+
+    updateEmissionSourceById(emissionId, emissionSource);
+
     res.redirect('/feedback');
 });
 

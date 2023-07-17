@@ -39,9 +39,20 @@ export function validateEmissionSourceData(obj) {
     if (!regexPattern.test(obj.date))
         return null;
 
+    // Verify if month is valid
     let monthIndex = obj.date.indexOf('-') + 1;
     let month = parseInt(obj.date.slice(monthIndex, monthIndex + 2));
     if (month < 1 || month > 12)
+        return null;
+
+    // Verify if year between 2006 and 2022
+    let year = parseInt(obj.date.slice(0, 4));
+    if (year < 2006 || year > 2022)
+        return null
+
+    // If north region, verify if year >= 2011
+    const northRegion = ['AM', 'PA', 'AC', 'RR', 'RO', 'AP', 'TO'];
+    if (northRegion.includes(obj.state) && year < 2011)
         return null;
 
     return obj;
@@ -78,6 +89,21 @@ export async function getById(id) {
 export async function deleteById(id) {
     openDb().then(db => {
         db.run('DELETE from EmissionSource WHERE id=?', [id]);
+    });
+}
+
+export async function updateEmissionSourceById(id, emissionSource) {
+    openDb().then(db => {
+        db.run("UPDATE EmissionSource SET name=?, consumptionAmount=?, date=?, state=?, emission=? WHERE id=?",
+            [
+                emissionSource.name,
+                emissionSource.consumptionAmount,
+                emissionSource.date,
+                emissionSource.state,
+                emissionSource.emission,
+                id
+            ]
+        );
     });
 }
 

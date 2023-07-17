@@ -65,73 +65,78 @@
             text-decoration: none;
         }
     </style>
+    <script>
+        window.addEventListener("DOMContentLoaded", (event) => {
+            verifyRegion()
+        });
+
+        function verifyRegion() {
+            var state = document.getElementById("state").value;
+            var dateInput = document.getElementById("date");
+            const northRegion = ['AM', 'PA', 'AC', 'RR', 'RO', 'AP', 'TO'];
+            if (northRegion.includes(state)) {
+                dateInput.setAttribute("min", "2011-01");
+            } else {
+                dateInput.setAttribute("min", "2006-01");
+            }
+        }
+    </script>
 </head>
 
-<body>
-    <h1 style="color: #d98b0d; margin-bottom: 20px;">Enter the Source Data or Upload the Bill PDF</h1>
-    <main>
-        <form action="./emissionSource" method="post">
-            <div class="mb-3">
-                <label for="name" class="form-label">Source Name:</label>
-                <input type="text" class="form-control" id="sourceName" name="name" required>
-            </div>
-            <div class="mb-3">
-                <label for="consumptionAmount" class="form-label">Consumption Amount (MWh):</label>
-                <input class="form-control" id="consumptionAmount" name="consumptionAmount" type="number" required>
-            </div>
-            <div class="mb-3">
-                <label for="date" class="form-label">Date:</label>
-                <input class="form-control" id="date" name="date" type="month" required>
-            </div>
-            <label for="state">State: </label>
-            <select id="state" name="state" class="form-select" required>
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
-                <option value="AP">Amapá</option>
-                <option value="AM">Amazonas</option>
-                <option value="BA">Bahia</option>
-                <option value="CE">Ceará</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="ES">Espirito Santo</option>
-                <option value="GO">Goiás</option>
-                <option value="MA">Maranhão</option>
-                <option value="MS">Mato Grosso do Sul</option>
-                <option value="MT">Mato Grosso</option>
-                <option value="MG">Minas Gerais</option>
-                <option value="PA">Pará</option>
-                <option value="PB">Paraíba</option>
-                <option value="PR">Paraná</option>
-                <option value="PE">Pernambuco</option>
-                <option value="PI">Piauí</option>
-                <option value="RJ">Rio de Janeiro</option>
-                <option value="RN">Rio Grande do Norte</option>
-                <option value="RS">Rio Grande do Sul</option>
-                <option value="RO">Rondônia</option>
-                <option value="RR">Roraima</option>
-                <option value="SC">Santa Catarina</option>
-                <option value="SP">São Paulo</option>
-                <option value="SE">Sergipe</option>
-                <option value="TO">Tocantins</option>
-            </select>
+<%const states=[ { abbreviation: "AC" , name: "Acre" }, { abbreviation: "AL" , name: "Alagoas" }, { abbreviation: "AP" ,
+    name: "Amapá" }, { abbreviation: "AM" , name: "Amazonas" }, { abbreviation: "BA" , name: "Bahia" }, {
+    abbreviation: "CE" , name: "Ceará" }, { abbreviation: "DF" , name: "Distrito Federal" }, { abbreviation: "ES" ,
+    name: "Espírito Santo" }, { abbreviation: "GO" , name: "Goiás" }, { abbreviation: "MA" , name: "Maranhão" }, {
+    abbreviation: "MT" , name: "Mato Grosso" }, { abbreviation: "MS" , name: "Mato Grosso do Sul" }, {
+    abbreviation: "MG" , name: "Minas Gerais" }, { abbreviation: "PA" , name: "Pará" }, { abbreviation: "PB" ,
+    name: "Paraíba" }, { abbreviation: "PR" , name: "Paraná" }, { abbreviation: "PE" , name: "Pernambuco" }, {
+    abbreviation: "PI" , name: "Piauí" }, { abbreviation: "RJ" , name: "Rio de Janeiro" }, { abbreviation: "RN" ,
+    name: "Rio Grande do Norte" }, { abbreviation: "RS" , name: "Rio Grande do Sul" }, { abbreviation: "RO" ,
+    name: "Rondônia" }, { abbreviation: "RR" , name: "Roraima" }, { abbreviation: "SC" , name: "Santa Catarina" }, {
+    abbreviation: "SP" , name: "São Paulo" }, { abbreviation: "SE" , name: "Sergipe" }, { abbreviation: "TO" ,
+    name: "Tocantins" }, ]; %>
 
-            <button style="margin-top: 20px; border-color: #d98b0d; background-color: #d98b0d;" type="submit"
-                class="btn btn-primary">Submit</button>
-        </form>
+    <body>
+        <h1 style="color: #d98b0d; margin-bottom: 20px;">Edit the Source Data</h1>
+        <h2 style="color: #d98b0d;">Select State before Date. Attention: North states doesn't have Emission Factor data
+            before 2011</h2>
+        <main>
+            <form action="./edit" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Source Name:</label>
+                    <input value="<%= emissionData.name %>" type="text" class="form-control" id="sourceName" name="name"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="consumptionAmount" class="form-label">Consumption Amount (MWh):</label>
+                    <input value="<%= emissionData.consumptionAmount %>" class="form-control" id="consumptionAmount"
+                        name="consumptionAmount" type="number" step="any" required>
+                </div>
+                <label for="state">State: </label>
+                <select id="state" name="state" class="form-select" onchange="verifyRegion()" required>
+                    <% states.forEach((state)=> { %>
+                        <% if (state.abbreviation==emissionData.state) { %>
+                            <option value="<%= state.abbreviation %>" selected>
+                                <%= state.name %>
+                            </option>
+                            <% } else { %>
+                                <option value="<%= state.abbreviation %>">
+                                    <%= state.name %>
+                                </option>
 
-        <form class="uploadForm" action="./upload" enctype='multipart/form-data' method="post">
-            <div class="mb-3">
-                <label for="name" class="form-label">Source Name:</label>
-                <input type="text" class="form-control" id="sourceName" name="name" required>
-            </div>
-            <div class="mb-3">
-                <label for="billPdf" class="form-label">Consumption Amount:</label>
-                <input class="form-control" id="billPdf" name="file" type="file" required>
-                <div id="fileHelp" class="form-text">Max 2 MB. Only PDF</div>
-            </div>
-            <button style="border-color: #d98b0d; background-color: #d98b0d;" type="submit"
-                class="btn btn-primary">Submit</button>
-        </form>
-    </main>
-</body>
+
+                                <% }}); %>
+                </select>
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date:</label>
+                    <input value="<%= emissionData.date %>" class="form-control" id="date" name="date" type="month"
+                        min="2006-01" max="2022-12" required>
+                </div>
+
+                <button style="margin-top: 20px; border-color: #d98b0d; background-color: #d98b0d;" type="submit"
+                    class="btn btn-primary">Edit</button>
+            </form>
+        </main>
+    </body>
 
 </html>
