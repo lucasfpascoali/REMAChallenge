@@ -8,7 +8,7 @@ Primeiramente, rode o seguinte comando para instalar as dependências do projeto
 E para executar o servidor rode:
 ```npm start```
 
-Ou se preferir roder no modo dev:
+Ou se preferir rodar no modo dev (utiliza a dependência nodemon):
 ```npm run dev```
 
 Os dois comandos para rodar, primeiramente executam o arquivo scripts/convertCSVToJSON.js,
@@ -48,6 +48,10 @@ Utilizei essa dependência para converter o arquivo .csv para .json, ela facilit
 
 O PDFReader, que foi a dependência que escolhi, utiliza o PDF2Json como dependência, por isso que o projeto possui as duas. O PDFReader permitiu que eu conseguisse extrair dados de arquivos .pdf para concluir o desafio.
 
+## Nodemon
+
+É uma dependência de desenvolvimento que faz o auto reload do server a cada mudança, não é necessária para rodar o servidor, apenas se quiser rodar no modo dev. Instale-a usando: `npm install nodemon -D`
+
 # Banco de Dados
 
 ## EmissionSource 
@@ -83,6 +87,10 @@ Essa parece meio óbvia, mas estou anotando ela assim mesmo, como não há dados
 ## Quarta Hipótese: Nome da Fonte de Emissão quando gerada por um PDF
 
 Como o desafio não deixava explicíto como seria o nome de uma fonte de energia gerada pelo PDF, fiz um campo para usuário preencher o nome e selecionar o arquivo PDF depois.
+
+## Quinta Hipótese: Conversão da Tabela para .json
+
+Eu só extrai da tabela os dados necessários para o programa, ou seja, o arquivo .json não armazena as porcentages de etanol na gasolina ou de biodíesel, pois elas não são utilizadas no programa.
 
 # Observações
 
