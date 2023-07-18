@@ -31,6 +31,7 @@ export async function createEmissionSourceFromPdf(pdfFileName, sourceName) {
             })
 
             if (!data) {
+                fs.rmSync(pdfPath);
                 return;
             }
 
