@@ -4,6 +4,7 @@ import express from 'express';
 import multer from 'multer';
 import { configs } from './multerConfig.js';
 import { createEmissionSourceFromPdf } from './controllers/pdfParseController.js';
+import * as fs from 'fs';
 
 const upload = multer(configs);
 
@@ -47,7 +48,7 @@ app.get('/feedback', (req, res) => {
 app.post('/emissionSource', (req, res) => {
     let data = validateEmissionSourceData(req.body);
     if (!data) {
-        res.redirect('feedback?err=true')
+        res.redirect('/feedback?err=true')
         return;
     }
 
@@ -70,6 +71,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     }
 
     createEmissionSourceFromPdf(req.file.filename, req.body.name);
+
     res.redirect('/feedback');
 });
 
@@ -77,7 +79,7 @@ app.post('/:emissionId/edit', (req, res) => {
     const emissionId = req.params.emissionId;
     let data = validateEmissionSourceData(req.body);
     if (!data) {
-        res.redirect('feedback?err=true')
+        res.redirect('/feedback?err=true')
         return;
     }
 
