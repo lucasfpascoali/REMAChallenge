@@ -14,6 +14,11 @@ app.set('view engine', 'ejs');
 app.set('views', './views')
 app.use(express.urlencoded({ extended: true }));
 
+// Creating Upload Folder
+if (!fs.existsSync('./uploads')) {
+    fs.mkdirSync('./uploads');
+}
+
 createTable();
 
 app.get('/', async (req, res) => {
